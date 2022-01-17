@@ -1,0 +1,185 @@
+<!-- <!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://vjs.zencdn.net/7.17.0/video-js.css" rel="stylesheet" />
+
+ 
+</head>
+
+<body>
+    <div> ALOOOOO</div>
+    <button id="ButtonId" onclick="myFunction()"> CLICK </button>
+    <video id=example-video width=960 height=540 class="video-js vjs-default-skin" controls>
+        <source src="http://192.168.2.210:4000/index.m3u8" type="application/x-mpegURL">
+    </video>
+
+    <script src="https://vjs.zencdn.net/7.17.0/video.min.js"></script>
+    
+    <script>
+        console.log("hellloooooo")
+
+
+        function myFunction() {
+            // Carry out a function here...
+            var player = videojs('example-video');
+            player.play();
+
+        }
+
+
+
+
+    </script>
+</body> -->
+
+
+<!-- <!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8 />
+    <title>hls</title>
+
+
+    <link href="https://unpkg.com/video.js/dist/video-js.css" rel="stylesheet">
+</head>
+
+<body>
+    <h1>HEYYYY</h1>
+    <button id="ButtonId" onclick="myFunction()"> CLICK </button>
+    <video-js id="example-video1" class="vjs-default-skin" controls preload="auto" width="640" height="268">
+        <source src="http://192.168.2.210:4000/index.m3u8"
+            type="application/x-mpegURL">
+    </video-js>
+
+
+    <script src="https://unpkg.com/video.js/dist/video.js"></script>
+    <script src="https://unpkg.com/@videojs/http-streaming/dist/videojs-http-streaming.js"></script>
+
+    <script>
+
+        console.log("hellloooooo")
+
+
+        function myFunction() {
+           
+            var player = videojs('example-video1');
+           // player.play();
+
+        }
+
+
+
+
+    </script>
+
+</body>
+
+</html> -->
+
+
+  
+<html>
+  <head>
+    <title>Hls.js demo - basic usage</title>
+  </head>
+
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+      <h1>Hls.js demo - basic usage</h1>
+     
+      <video  height="600" id="video0" controls></video>
+      <button onclick="getFrame()" >CLICKKKK </button>
+     <canvas id="canvas"> </canvas>
+      <!-- <video height="600" id="video1" controls></video>
+      <video height="600" id="video2" controls></video>
+      <video height="600" id="video3" controls></video> -->
+    
+
+    <script>
+      let i=0;
+      function getFrame(){
+
+const video = document.getElementById("video0");
+console.log(video.src)
+if(!video.src) {
+  return null;
+}
+const canvas = document.getElementById('canvas');
+
+canvas.width=window.innerWidth;
+
+canvas.height = window.innerHeight;
+var ctx= canvas.getContext('2d')
+ctx.drawImage(video, 0,0);
+
+//draw a circle
+ctx.beginPath();
+ctx.arc(0 , 75, 10, 0, Math.PI * 2, true);
+ctx.stroke();
+ctx.strokeRect(20+i, 10+i, 150, 110);
+i++;
+const data = canvas.toDataURL('image/jpeg');     
+ // frame data
+}
+setInterval(getFrame,1000/25)
+
+      var video0 = document.getElementById('video0');
+      
+      if (Hls.isSupported()) {
+          console.log("SUPPORTEDDDDDDDD")
+        var hls = new Hls({
+    //     debug: true,
+        });
+        hls.loadSource('http://192.168.2.210:4000/index0.m3u8');
+        hls.attachMedia(video0);
+        hls.on(Hls.Events.MEDIA_ATTACHED, function () {
+          video0.muted = true;
+          video0.play();
+        });
+        
+
+        // var hls1 = new Hls({
+        // //  debug: true,
+        // });
+        // hls1.loadSource('http://192.168.2.210:4000/index1.m3u8');
+        // hls1.attachMedia(video1);
+        // hls1.on(Hls.Events.MEDIA_ATTACHED, function () {
+        //   video1.muted = true;
+        //   video1.play();
+        // });
+
+        // var hls2 = new Hls({
+        //  // debug: true,
+        // });
+        // hls2.loadSource('http://192.168.2.210:4000/index2.m3u8');
+        // hls2.attachMedia(video2);
+        // hls2.on(Hls.Events.MEDIA_ATTACHED, function () {
+        //   video2.muted = true;
+        //   video2.play();
+        // });
+
+
+        // var hls3 = new Hls({
+        // //  debug: true,
+        // });
+        // hls3.loadSource('http://192.168.2.210:4000/index3.m3u8');
+        // hls3.attachMedia(video3);
+        // hls3.on(Hls.Events.MEDIA_ATTACHED, function () {
+        //   video3.muted = true;
+        //   video3.play();
+        // });
+      }
+      // hls.js is not supported on platforms that do not have Media Source Extensions (MSE) enabled.
+      // When the browser has built-in HLS support (check using `canPlayType`), we can provide an HLS manifest (i.e. .m3u8 URL) directly to the video element through the `src` property.
+      // This is using the built-in support of the plain video element, without using hls.js.
+      else if (video0.canPlayType('application/vnd.apple.mpegurl')) {
+        video0.src = 'http://192.168.2.210:4000/index.m3u8';
+        video0.addEventListener('canplay', function () {
+          video0.play();
+        });
+      }
+    </script>
+  </body>
+</html>
